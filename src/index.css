@@ -1,0 +1,146 @@
+/* ============================================================
+   Roadmap Generator — "Drafting Table" design system
+   A planning tool styled like an architect's blueprint:
+   ink navy, drafting paper, a single blueprint-cyan accent,
+   hairline connector lines, monospace data type.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Light theme = drafting paper */
+  --paper: #f2efe6;
+  --paper-raised: #faf8f2;
+  --ink: #16202e;
+  --ink-soft: #3c4a5c;
+  --ink-faint: #6c7889;
+  --line: #d4cdba;
+  --line-strong: #b8ae97;
+  --accent: #0a6d8a;        /* blueprint cyan-teal */
+  --accent-soft: #d9edf2;
+  --accent-ink: #084d61;
+  --warn: #a8571f;
+  --crit: #9c2b3a;
+  --grid: rgba(22, 32, 46, 0.05);
+
+  --shadow-sm: 0 1px 2px rgba(22, 32, 46, 0.06);
+  --shadow-md: 0 4px 16px rgba(22, 32, 46, 0.08);
+  --shadow-lg: 0 12px 40px rgba(22, 32, 46, 0.12);
+
+  --radius: 4px;
+  --radius-lg: 8px;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --maxw: 1180px;
+}
+
+:root[data-theme='dark'] {
+  /* Dark theme = blueprint at night */
+  --paper: #0d1520;
+  --paper-raised: #141f2e;
+  --ink: #e8edf3;
+  --ink-soft: #b3bfce;
+  --ink-faint: #7d8b9d;
+  --line: #253346;
+  --line-strong: #35485f;
+  --accent: #3fb6d6;
+  --accent-soft: #14303c;
+  --accent-ink: #8fdcf0;
+  --warn: #d99552;
+  --crit: #e07685;
+  --grid: rgba(120, 160, 200, 0.06);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background-color: var(--paper);
+  /* Blueprint grid */
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+a { color: inherit; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+::selection { background: var(--accent); color: #fff; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Utility label — the drafting "callout" style */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.mono { font-family: var(--font-mono); }
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 640px) {
+  .container { padding: 0 16px; }
+  body { background-size: 22px 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
