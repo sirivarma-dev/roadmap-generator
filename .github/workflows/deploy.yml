@@ -24,7 +24,10 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      - run: npm ci
+      # npm install (not `npm ci`): the lockfile is generated on Windows and
+      # omits some Linux-only optional deps (@emnapi/*, oxlint's wasm runtime),
+      # which makes strict `npm ci` fail. `npm install` reconciles them.
+      - run: npm install --no-audit --no-fund
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
