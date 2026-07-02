@@ -13,9 +13,14 @@ interface Props {
   scrollAnchorId?: string;
 }
 
-/** A beginner-friendly YouTube search link for a learning query. */
-function videoSearchUrl(query: string): string {
-  return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+/**
+ * A YouTube search link for a topic/subtopic, tuned for short, simple-English
+ * explainers. The `sp=EgIYAw%3D%3D` filter restricts results to 4–20 minute
+ * videos, so every result completes in minutes rather than hours.
+ */
+function videoSearchUrl(term: string): string {
+  const query = `${term} explained simply for beginners in english`;
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}&sp=EgIYAw%3D%3D`;
 }
 
 export function TopicCard({ topic, subject, defaultOpen = false, scrollAnchorId }: Props) {
@@ -82,11 +87,11 @@ export function TopicCard({ topic, subject, defaultOpen = false, scrollAnchorId 
 
           <div className="detail-section">
             <span className="eyebrow"><Play style={{ width: 13, height: 13, verticalAlign: -2 }} /> Watch &amp; learn — video explainers</span>
-            <p className="detail-hint">Simple, beginner-friendly videos to help you understand this topic.</p>
+            <p className="detail-hint">Short, simple-English videos (a few minutes each) for this topic and every subtopic.</p>
             <div className="video-links">
               <a
                 className="video-link video-link--primary"
-                href={topic.videoUrl ?? videoSearchUrl(`${subject} ${topic.name} explained for beginners`)}
+                href={topic.videoUrl ?? videoSearchUrl(`${subject} ${topic.name}`)}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -96,7 +101,7 @@ export function TopicCard({ topic, subject, defaultOpen = false, scrollAnchorId 
                 <a
                   className="video-link"
                   key={s}
-                  href={videoSearchUrl(`${subject} ${s} tutorial for beginners`)}
+                  href={videoSearchUrl(`${subject} ${s}`)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
