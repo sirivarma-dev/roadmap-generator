@@ -2,16 +2,23 @@ import { useState } from 'react';
 import type { Topic } from '../types/roadmap';
 import { useStore } from '../store/useStore';
 import {
-  Bookmark, BookmarkFilled, ChevronDown, Clock, Target, Alert, Note, Check,
+  Bookmark, BookmarkFilled, ChevronDown, Clock, Target, Alert, Note, Check, Play,
 } from './Icons';
 
 interface Props {
   topic: Topic;
+  /** The roadmap subject, used to build relevant video-search links. */
+  subject: string;
   defaultOpen?: boolean;
   scrollAnchorId?: string;
 }
 
-export function TopicCard({ topic, defaultOpen = false, scrollAnchorId }: Props) {
+/** A beginner-friendly YouTube search link for a learning query. */
+function videoSearchUrl(query: string): string {
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+}
+
+export function TopicCard({ topic, subject, defaultOpen = false, scrollAnchorId }: Props) {
   const [open, setOpen] = useState(defaultOpen);
   const bookmarked = useStore((s) => !!s.bookmarks[topic.id]);
   const note = useStore((s) => s.notes[topic.id] ?? '');
@@ -69,6 +76,32 @@ export function TopicCard({ topic, defaultOpen = false, scrollAnchorId }: Props)
             <div className="subtopic-grid">
               {topic.subtopics.map((s) => (
                 <div className="subtopic" key={s}><i /> {s}</div>
+              ))}
+            </div>
+          </div>
+
+          <div className="detail-section">
+            <span className="eyebrow"><Play style={{ width: 13, height: 13, verticalAlign: -2 }} /> Watch &amp; learn — video explainers</span>
+            <p className="detail-hint">Simple, beginner-friendly videos to help you understand this topic.</p>
+            <div className="video-links">
+              <a
+                className="video-link video-link--primary"
+                href={topic.videoUrl ?? videoSearchUrl(`${subject} ${topic.name} explained for beginners`)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Play /> Watch “{topic.name}” explained
+              </a>
+              {topic.subtopics.map((s) => (
+                <a
+                  className="video-link"
+                  key={s}
+                  href={videoSearchUrl(`${subject} ${s} tutorial for beginners`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Play /> {s}
+                </a>
               ))}
             </div>
           </div>

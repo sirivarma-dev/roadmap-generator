@@ -22,6 +22,9 @@ export interface TopicBlueprint {
   commonMistakes: string[];
   /** Coarse level used to skip content for more advanced learners. */
   level: 'foundation' | 'core' | 'intermediate' | 'advanced' | 'professional';
+  /** Optional curated explainer video URL. If omitted, the UI falls back to a
+   *  beginner-friendly YouTube search link generated from the topic name. */
+  videoUrl?: string;
 }
 
 export interface Curriculum {

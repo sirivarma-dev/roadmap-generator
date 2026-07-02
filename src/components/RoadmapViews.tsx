@@ -7,13 +7,13 @@ export function TimelineView({ roadmap }: { roadmap: Roadmap }) {
   return (
     <div>
       {roadmap.phases.map((phase, i) => (
-        <PhaseBlock key={phase.id} phase={phase} index={i} defaultOpen={i === 0} />
+        <PhaseBlock key={phase.id} phase={phase} index={i} defaultOpen={i === 0} subject={roadmap.subjectLabel} />
       ))}
     </div>
   );
 }
 
-function PhaseBlock({ phase, index, defaultOpen }: { phase: Phase; index: number; defaultOpen: boolean }) {
+function PhaseBlock({ phase, index, defaultOpen, subject }: { phase: Phase; index: number; defaultOpen: boolean; subject: string }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div className={`phase ${open ? 'phase--open' : ''}`}>
@@ -40,7 +40,7 @@ function PhaseBlock({ phase, index, defaultOpen }: { phase: Phase; index: number
         <>
           <div className="phase__topics">
             {phase.topics.map((t) => (
-              <TopicCard key={t.id} topic={t} scrollAnchorId={`topic-${t.id}`} />
+              <TopicCard key={t.id} topic={t} subject={subject} scrollAnchorId={`topic-${t.id}`} />
             ))}
           </div>
 

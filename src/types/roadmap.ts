@@ -45,6 +45,9 @@ export interface Topic {
   interviewImportance: InterviewImportance;
   interviewConcepts: string[];
   commonMistakes: string[];
+  /** Optional curated explainer video. When absent, the UI links to a
+   *  beginner-friendly YouTube search for the topic instead. */
+  videoUrl?: string;
 }
 
 export interface Phase {

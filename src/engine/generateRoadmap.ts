@@ -179,6 +179,7 @@ export function generateRoadmap(input: RoadmapInput): Roadmap {
       interviewImportance: bp.interviewImportance,
       interviewConcepts: bp.interviewConcepts,
       commonMistakes: bp.commonMistakes,
+      videoUrl: bp.videoUrl,
     };
   });
 
