@@ -62,7 +62,7 @@ export function LoginPage() {
             <div className="field__label"><b>Username</b></div>
             <input
               className="text-input"
-              placeholder="e.g. srinivas"
+              placeholder="e.g. alex"
               value={username}
               autoComplete="username"
               onChange={(e) => setUsername(e.target.value)}
