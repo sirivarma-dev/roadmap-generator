@@ -1,5 +1,5 @@
 import { useStore } from '../store/useStore';
-import { Sun, Moon, Search, Route } from './Icons';
+import { Sun, Moon, Search, Route, LogOut, User } from './Icons';
 
 interface Props {
   onSearch: () => void;
@@ -10,6 +10,10 @@ export function Header({ onSearch, onHome }: Props) {
   const theme = useStore((s) => s.theme);
   const toggleTheme = useStore((s) => s.toggleTheme);
   const roadmap = useStore((s) => s.roadmap);
+  const currentUser = useStore((s) => s.currentUser);
+  const accounts = useStore((s) => s.accounts);
+  const logout = useStore((s) => s.logout);
+  const displayName = currentUser ? accounts[currentUser]?.name ?? currentUser : null;
 
   return (
     <header className="site-header">
@@ -38,6 +42,14 @@ export function Header({ onSearch, onHome }: Props) {
             <button className="btn btn--ghost" onClick={onHome}>
               <Route /> New roadmap
             </button>
+          )}
+          {displayName && (
+            <div className="user-chip">
+              <span className="user-chip__name"><User /> {displayName}</span>
+              <button className="icon-btn" onClick={logout} aria-label="Log out" title="Log out">
+                <LogOut />
+              </button>
+            </div>
           )}
         </div>
       </div>

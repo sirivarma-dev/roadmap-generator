@@ -4,6 +4,7 @@ import { useStore } from '../store/useStore';
 import {
   Bookmark, BookmarkFilled, ChevronDown, Clock, Target, Alert, Note, Check, Play,
 } from './Icons';
+import { subtopicKey } from '../utils/progress';
 
 interface Props {
   topic: Topic;
@@ -27,10 +28,17 @@ export function TopicCard({ topic, subject, defaultOpen = false, scrollAnchorId 
   const [open, setOpen] = useState(defaultOpen);
   const bookmarked = useStore((s) => !!s.bookmarks[topic.id]);
   const note = useStore((s) => s.notes[topic.id] ?? '');
+  const completed = useStore((s) => s.completedSubtopics);
   const toggleBookmark = useStore((s) => s.toggleBookmark);
   const setNote = useStore((s) => s.setNote);
+  const toggleSubtopic = useStore((s) => s.toggleSubtopic);
+  const setTopicComplete = useStore((s) => s.setTopicComplete);
   const [draft, setDraft] = useState(note);
   const [saved, setSaved] = useState(false);
+
+  const doneCount = topic.subtopics.filter((s) => completed[subtopicKey(topic.id, s)]).length;
+  const total = topic.subtopics.length;
+  const allDone = total > 0 && doneCount === total;
 
   function saveNote() {
     setNote(topic.id, draft);
@@ -39,10 +47,14 @@ export function TopicCard({ topic, subject, defaultOpen = false, scrollAnchorId 
   }
 
   return (
-    <div className={`topic ${open ? 'topic--open' : ''}`} id={scrollAnchorId}>
+    <div className={`topic ${open ? 'topic--open' : ''} ${allDone ? 'topic--done' : ''}`} id={scrollAnchorId}>
       <div className="topic__bar" onClick={() => setOpen((o) => !o)}>
+        {allDone && <span className="topic__done-check" title="Topic complete"><Check /></span>}
         <span className="topic__name">{topic.name}</span>
         <div className="topic__tags">
+          {doneCount > 0 && (
+            <span className={`tag tag--progress ${allDone ? 'is-done' : ''}`}>{doneCount}/{total} done</span>
+          )}
           <span className="tag tag--days"><Clock style={{ width: 12, height: 12 }} /> {topic.estimatedDays}d</span>
           <span className={`tag tag--diff-${topic.difficulty}`}>{topic.difficulty}</span>
           <span className={`imp-badge imp-${topic.interviewImportance}`}>{topic.interviewImportance}</span>
@@ -77,11 +89,34 @@ export function TopicCard({ topic, subject, defaultOpen = false, scrollAnchorId 
           )}
 
           <div className="detail-section">
-            <span className="eyebrow">Subtopics — {topic.subtopics.length} to cover</span>
+            <div className="subtopic-head">
+              <span className="eyebrow">Subtopics — {doneCount}/{total} completed</span>
+              {total > 0 && (
+                <button className="mark-all" onClick={() => setTopicComplete(topic.id, topic.subtopics, !allDone)}>
+                  {allDone ? 'Clear all' : 'Mark all done'}
+                </button>
+              )}
+            </div>
+            {total > 0 && (
+              <div className="progress-bar progress-bar--slim" style={{ margin: '0 0 12px' }}>
+                <i style={{ width: `${Math.round((doneCount / total) * 100)}%` }} />
+              </div>
+            )}
             <div className="subtopic-grid">
-              {topic.subtopics.map((s) => (
-                <div className="subtopic" key={s}><i /> {s}</div>
-              ))}
+              {topic.subtopics.map((s) => {
+                const done = !!completed[subtopicKey(topic.id, s)];
+                return (
+                  <button
+                    className={`subtopic subtopic--check ${done ? 'is-done' : ''}`}
+                    key={s}
+                    onClick={() => toggleSubtopic(topic.id, s)}
+                    aria-pressed={done}
+                  >
+                    <span className="subtopic__box">{done && <Check />}</span>
+                    <span className="subtopic__text">{s}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 

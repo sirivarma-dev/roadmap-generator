@@ -6,11 +6,13 @@ import { SetupForm } from './components/SetupForm';
 import { Loading } from './components/Loading';
 import { Dashboard } from './components/Dashboard';
 import { SearchModal } from './components/SearchModal';
+import { LoginPage } from './components/LoginPage';
 import './components/components.css';
 
 export default function App() {
   const theme = useStore((s) => s.theme);
   const roadmap = useStore((s) => s.roadmap);
+  const currentUser = useStore((s) => s.currentUser);
   const isGenerating = useStore((s) => s.isGenerating);
   const generate = useStore((s) => s.generate);
   const clearRoadmap = useStore((s) => s.clearRoadmap);
@@ -63,7 +65,9 @@ export default function App() {
       <Header onSearch={() => setSearchOpen(true)} onHome={handleHome} />
 
       <main style={{ flex: 1 }}>
-        {isGenerating ? (
+        {!currentUser ? (
+          <LoginPage />
+        ) : isGenerating ? (
           <div className="container"><Loading subject={pendingSubject || 'your'} /></div>
         ) : roadmap ? (
           <Dashboard roadmap={roadmap} onJumpToTopic={jumpToTopic} />
@@ -72,7 +76,7 @@ export default function App() {
         )}
       </main>
 
-      {searchOpen && roadmap && (
+      {searchOpen && roadmap && currentUser && (
         <SearchModal
           roadmap={roadmap}
           onClose={() => setSearchOpen(false)}

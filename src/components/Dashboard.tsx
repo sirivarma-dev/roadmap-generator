@@ -2,6 +2,7 @@ import type { Roadmap } from '../types/roadmap';
 import { useStore } from '../store/useStore';
 import { TimelineView, TreeView } from './RoadmapViews';
 import { Sidebar, SchedulePanel, RevisionPanel } from './Sidebar';
+import { ProgressPanel } from './ProgressPanel';
 import { Timeline, Tree, Download, Printer, Layers, Clock, Target, Route } from './Icons';
 import { downloadPDF, downloadMarkdown, printRoadmap } from '../utils/exporters';
 
@@ -69,6 +70,7 @@ export function Dashboard({ roadmap, onJumpToTopic }: Props) {
 
           <div>
             <Sidebar roadmap={roadmap} onJumpToTopic={onJumpToTopic} />
+            <ProgressPanel roadmap={roadmap} />
             <SchedulePanel roadmap={roadmap} />
             <RevisionPanel roadmap={roadmap} />
           </div>

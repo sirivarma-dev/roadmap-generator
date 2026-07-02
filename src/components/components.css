@@ -363,6 +363,88 @@
 .site-footer__inner { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; font-size: 0.82rem; color: var(--ink-faint); }
 .site-footer__inner .mono { font-family: var(--font-mono); }
 
+/* ===================== Auth / Login ===================== */
+.auth-wrap { max-width: 440px; margin: 0 auto; }
+.auth-head { text-align: center; margin-bottom: 22px; }
+.auth-badge {
+  width: 52px; height: 52px; margin: 0 auto 14px; border-radius: 50%;
+  display: grid; place-items: center; color: var(--accent);
+  background: var(--accent-soft); border: 1px solid var(--line);
+}
+.auth-badge svg { width: 26px; height: 26px; }
+.auth-title { font-size: 1.5rem; margin-bottom: 6px; }
+.auth-sub { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.5; margin: 0; }
+.auth-tabs { display: flex; gap: 6px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 4px; margin-bottom: 22px; }
+.auth-tabs button { flex: 1; padding: 9px; font-size: 0.88rem; font-weight: 600; color: var(--ink-faint); border-radius: 3px; transition: all 0.14s ease; }
+.auth-tabs button.active { background: var(--paper-raised); color: var(--accent); box-shadow: var(--shadow-sm); }
+.auth-switch { text-align: center; font-size: 0.86rem; color: var(--ink-soft); margin: 16px 0 0; }
+.auth-switch button { color: var(--accent); font-weight: 600; }
+.auth-switch button:hover { text-decoration: underline; }
+.auth-note { text-align: center; font-size: 0.76rem; color: var(--ink-faint); margin: 14px 0 0; }
+
+/* ===================== Header user chip ===================== */
+.user-chip { display: inline-flex; align-items: center; gap: 4px; padding-left: 8px; margin-left: 4px; border-left: 1px solid var(--line); }
+.user-chip__name { display: inline-flex; align-items: center; gap: 6px; font-size: 0.84rem; font-weight: 600; color: var(--ink-soft); }
+.user-chip__name svg { width: 15px; height: 15px; color: var(--accent); }
+
+/* ===================== Subtopic completion ===================== */
+.subtopic-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 9px; }
+.subtopic-head > .eyebrow { margin-bottom: 0; }
+.mark-all { font-size: 0.76rem; font-weight: 600; color: var(--accent); padding: 3px 8px; border: 1px solid var(--line-strong); border-radius: var(--radius); transition: all 0.14s ease; }
+.mark-all:hover { background: var(--accent-soft); border-color: var(--accent); }
+.subtopic--check {
+  display: flex; gap: 9px; align-items: center; width: 100%; text-align: left;
+  font-size: 0.88rem; color: var(--ink-soft); padding: 5px 6px; border-radius: var(--radius);
+  transition: background 0.12s ease;
+}
+.subtopic--check:hover { background: var(--accent-soft); }
+.subtopic__box {
+  width: 17px; height: 17px; flex-shrink: 0; border: 1.5px solid var(--line-strong);
+  border-radius: 4px; display: grid; place-items: center; color: #fff; transition: all 0.14s ease;
+}
+.subtopic__box svg { width: 12px; height: 12px; }
+.subtopic--check.is-done .subtopic__box { background: var(--accent); border-color: var(--accent); }
+.subtopic--check.is-done .subtopic__text { color: var(--ink-faint); text-decoration: line-through; }
+
+.tag--progress { background: var(--accent-soft); color: var(--accent-ink); border-color: transparent; }
+.tag--progress.is-done { background: var(--accent); color: #fff; }
+.topic__done-check { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); color: #fff; flex-shrink: 0; margin-right: 8px; }
+.topic__done-check svg { width: 12px; height: 12px; }
+.topic--done .topic__name { color: var(--ink-faint); }
+
+/* ===================== Progress bar (shared) ===================== */
+.progress-bar { height: 9px; border-radius: 5px; background: var(--paper); border: 1px solid var(--line); overflow: hidden; }
+.progress-bar i { display: block; height: 100%; background: var(--accent); border-radius: 5px; transition: width 0.35s ease; }
+.progress-bar--slim { height: 6px; }
+
+/* ===================== Progress panel ===================== */
+.progress-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+.progress-pct { font-family: var(--font-mono); font-size: 1.6rem; font-weight: 600; color: var(--accent); }
+.progress-frac { font-size: 0.76rem; color: var(--ink-faint); text-align: right; }
+.streak-badge { display: inline-flex; align-items: center; gap: 4px; font-size: 0.76rem; font-weight: 700; color: var(--warn); }
+.streak-badge svg { width: 14px; height: 14px; }
+
+.today-log { margin-top: 16px; padding: 14px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); }
+.today-log__row { display: flex; align-items: center; justify-content: space-between; }
+.today-log__row .k { font-size: 0.86rem; font-weight: 600; color: var(--ink-soft); }
+.today-log__row .v { font-family: var(--font-mono); font-weight: 600; color: var(--accent); }
+.quick-add { display: flex; align-items: center; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+.quick-add span { font-size: 0.78rem; color: var(--ink-faint); }
+.quick-add button { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; color: var(--ink-soft); padding: 4px 9px; border: 1px solid var(--line-strong); border-radius: var(--radius); transition: all 0.14s ease; }
+.quick-add button:hover { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+.quick-add__undo { color: var(--ink-faint) !important; }
+.today-counts { display: flex; flex-direction: column; gap: 2px; margin-top: 10px; font-size: 0.78rem; color: var(--ink-faint); }
+
+.daily-history { margin-top: 16px; }
+.day-row { display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: 10px; padding: 3px 0; }
+.day-row__label { font-size: 0.76rem; color: var(--ink-faint); }
+.day-row.is-today .day-row__label { color: var(--accent); font-weight: 600; }
+.day-row__bar { height: 7px; border-radius: 4px; background: var(--paper); overflow: hidden; }
+.day-row__bar i { display: block; height: 100%; background: var(--accent); opacity: 0.55; border-radius: 4px; }
+.day-row.is-today .day-row__bar i { opacity: 0.85; }
+.day-row__meta { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint); white-space: nowrap; }
+.day-row__meta em { font-style: normal; color: var(--accent); }
+
 /* ===================== Misc ===================== */
 .section-gap { margin-top: 28px; }
 .divider-note { font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-faint); text-align: center; padding: 8px 0; letter-spacing: 0.06em; }
